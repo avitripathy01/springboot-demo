@@ -1,2 +1,2 @@
 # springboot-demo
-sample springboot example
+sample springboot example with embedded jetty server

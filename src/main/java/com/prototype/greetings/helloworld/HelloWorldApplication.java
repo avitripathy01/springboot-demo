@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 @RestController
 public class HelloWorldApplication {
@@ -24,10 +26,21 @@ public class HelloWorldApplication {
 
 		SpringApplication app= new SpringApplication(HelloWorldApplication.class);
 		app.setBannerMode(Banner.Mode.OFF);
+		System.out.println("WebApp type "+ app.getWebApplicationType().toString());
 		ApplicationContext ctx = app.run(args);
-		System.out.println(ctx.getApplicationName()+" :: "+ctx.getDisplayName() +":: parent "+ctx.getParent());
-	//	Arrays.stream(ctx.getBeanDefinitionNames()).forEach(System.out::println);
-		//SpringApplication.run(HelloWorldApplication.class, args);
+
+		//get Profiles
+		System.out.println("======Default profile(s)=====");
+		Arrays.stream(ctx.getEnvironment().getDefaultProfiles()).forEach(System.out::println);
+		System.out.println("======Active profile(s)=====");
+		Arrays.stream(ctx.getEnvironment().getActiveProfiles()).forEach(System.out::println);
+
+		//application related data
+		System.out.println("App Name ::"+ ctx.getId());
+		System.out.println(ctx.getEnvironment().getProperty("spring.application.name")); // everything in appl properties is a property in Environment instance
+
+		//Arrays.stream(ctx.getBeanDefinitionNames()).forEach(System.out::println);
+
 	}
 
 	@GetMapping("/hello")

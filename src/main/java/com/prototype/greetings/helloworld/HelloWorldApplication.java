@@ -48,17 +48,4 @@ public class HelloWorldApplication {
 		return new Greeting(1,"Hello "+userName);
 	}
 
-	@Bean
-	public RestTemplate getRestTemolate(RestTemplateBuilder builder){
-		return builder.build();
-	}
-
-	@Bean
-	public CommandLineRunner run(RestTemplate restTemplate){
-		return args -> {
-			ResponseEntity<Quote> resQuote = restTemplate.getForEntity("https://quoters.apps.pcfone.io/api/random", Quote.class);
-			System.out.println(resQuote.getBody().toString());
-		};
-	}
-
 }
